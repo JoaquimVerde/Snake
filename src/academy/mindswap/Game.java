@@ -8,6 +8,8 @@ import academy.mindswap.gameobjects.snake.Snake;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.screen.ScreenWriter;
 
+import java.util.Iterator;
+
 
 public class Game {
 
@@ -88,6 +90,10 @@ public class Game {
             generateFruit();
         }
 
+        if(checkBodyCollision()){
+            snake.die();
+        }
+
         if(snake.getHead().getRow()==Field.getHeight()-1){
             snake.die();
         }
@@ -100,5 +106,17 @@ public class Game {
         if(snake.getHead().getCol() == 0){
             snake.die();
         }
+
+    }
+
+
+    private boolean checkBodyCollision(){
+        Iterator<Position> iterator = snake.getFullSnake().iterator();
+        iterator.next();
+        while(iterator.hasNext()){
+            if(snake.getHead().equals(iterator.next()))
+                return true;
+        }
+        return false;
     }
 }
