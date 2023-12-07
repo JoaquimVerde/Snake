@@ -16,6 +16,7 @@ public class Game {
     private Snake snake;
     private Fruit fruit;
     private int delay;
+    private int score;
 
     public Game(int cols, int rows, int delay) {
         Field.init(cols, rows);
@@ -36,7 +37,12 @@ public class Game {
             checkCollisions(); //bater nas margens, em si própria, ou na fruta.
             Field.drawSnake(snake);
         }
-        System.out.println("Game Over");
+        System.out.println("Game Over. Score: "+ getScore());
+
+    }
+
+    public int getScore() {
+        return score;
     }
 
     private void generateFruit() {
@@ -88,6 +94,7 @@ public class Game {
             snake.increaseSize();
             fruit.generateNewPosition();
             generateFruit();
+            score++;
         }
 
         if(checkBodyCollision()){
